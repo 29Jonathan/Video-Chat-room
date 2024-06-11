@@ -6,7 +6,7 @@ const CHANNEL = "main"
 let client;
 let rtmClient;
 let channel;
-//let token = null; 
+
 let uid = sessionStorage.getItem('uid')
 if(!uid){
     uid = String(Math.floor(Math.random() * 10000))
@@ -44,7 +44,7 @@ let joinAndDisplayLocalStream = async () => {
     document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
 
     localTracks[1].play(`user-${uid}`)
-    
+    //publish(): Publishes local audio and/or video tracks to a channel.
     await client.publish([localTracks[0], localTracks[1]])
 }
 
@@ -172,6 +172,17 @@ let toggleScreen = async (e) => {
 
         switchToCamera()
     }
+}
+
+function fakeOffline() {
+    localTracks[0].setMuted(true);
+    //localTracks[1].setMuted(true);
+    document.getElementById('mic-btn').innerText = 'Mic off';
+    document.getElementById('mic-btn').style.backgroundColor = '#EE4B2B';
+    //document.getElementById('camera-btn').innerText = 'Camera off';
+    //document.getElementById('camera-btn').style.backgroundColor = '#EE4B2B';
+    let videoPlayer = document.getElementById(`user-${uid}`);
+    videoPlayer.innerHTML = '<img src="small-load.gif" alt="Loading..." style="width: 100%; height: 100%">';
 }
 
 document.getElementById('join-btn').addEventListener('click', joinStream)
