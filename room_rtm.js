@@ -104,6 +104,10 @@ let handleCommand = (command) => {
         document.getElementById('camera-btn').click()
     else if (command === '!clear')
         clearMessages()
+    else if (command === '!fake-offline')
+    {
+        fakeOffline()
+    }
     else
         addBotMessageToDom('Command not recognized. Type !help to see available commands')
 
