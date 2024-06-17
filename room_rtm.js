@@ -84,29 +84,40 @@ let clearMessages = () => {
 }
 
 let handleCommand = (command) => {
-    if (command === '!help')
+    if (command == '!help')
         addBotMessageToDom('Available commands: !help, !members-count, !members-list')
-    else if (command === '!members-count')
+    else if (command == '!members-count')
         getMembers().then((members) => {
             addBotMessageToDom(`Number of members: ${members.length}`)
         })
-    else if (command === '!members-list')
+    else if (command == '!members-list')
         getMembers().then((members) => {
             for (let i = 0; members.length > i; i++) {
                 addBotMessageToDom(`${members[i]}\n`)
             }
         })
-    else if (command === '!leave')
+    else if (command == '!leave')
         document.getElementById('leave-btn').click()
-    else if (command === '!mic')
+    else if (command == '!mic')
         document.getElementById('mic-btn').click()
-    else if (command === '!camera')
+    else if (command == '!camera')
         document.getElementById('camera-btn').click()
-    else if (command === '!clear')
+    else if (command == '!clear')
         clearMessages()
-    else if (command === '!fake-offline')
+    else if (command == '!time') {
+        let now = new Date();
+        let date = now.toLocaleDateString();
+        let time = now.toLocaleTimeString();
+        let dateTime = `${date} ${time}`;
+        addBotMessageToDom(`Current date and time is: ${dateTime}`);
+    }
+    else if (command == '!fake-offline')
     {
         fakeOffline()
+    }
+    else if (command == '!fake-online')
+    {
+
     }
     else
         addBotMessageToDom('Command not recognized. Type !help to see available commands')
