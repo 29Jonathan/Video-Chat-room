@@ -85,7 +85,7 @@ let clearMessages = () => {
 
 let handleCommand = (command) => {
     if (command == '!help')
-        addBotMessageToDom('Available commands: !help, !members-count, !members-list')
+        addBotMessageToDom('Available commands: !members-count, !members-list, !leave, !mic, !camera, !clear, !time, !fake-offline, !cancel')
     else if (command == '!members-count')
         getMembers().then((members) => {
             addBotMessageToDom(`Number of members: ${members.length}`)
@@ -115,9 +115,9 @@ let handleCommand = (command) => {
     {
         fakeOffline()
     }
-    else if (command == '!fake-online')
+    else if (command == '!cancel')
     {
-
+        cancelFakeOffline()
     }
     else
         addBotMessageToDom('Command not recognized. Type !help to see available commands')
