@@ -176,13 +176,55 @@ let toggleScreen = async (e) => {
 
 function fakeOffline() {
     localTracks[0].setMuted(true);
-    //localTracks[1].setMuted(true);
     document.getElementById('mic-btn').innerText = 'Mic off';
     document.getElementById('mic-btn').style.backgroundColor = '#EE4B2B';
-    //document.getElementById('camera-btn').innerText = 'Camera off';
-    //document.getElementById('camera-btn').style.backgroundColor = '#EE4B2B';
+
+    // let videoPlayer = document.getElementById(`user-${uid}`);
+    // videoPlayer.innerHTML = '<img src="small-load.gif" alt="Loading..." style="width: 100%; height: 100%">';
+    switchToGif(0);
+   
+}
+
+function cancelFakeOffline() {
+    localTracks[0].setMuted(false);
+    document.getElementById('mic-btn').innerText = 'Mic on';
+    document.getElementById('mic-btn').style.backgroundColor = 'cadetblue';
+
+    let videoPlayer = document.getElementById(`user-${uid}`);
+    videoPlayer.innerHTML ='';
+    localTracks[1].play(`user-${uid}`)
+  
+}
+
+function switchToGif(count) {
+    //addBotMessageToDom(`gif`);
     let videoPlayer = document.getElementById(`user-${uid}`);
     videoPlayer.innerHTML = '<img src="small-load.gif" alt="Loading..." style="width: 100%; height: 100%">';
+    
+    let gifDuration = Math.random() * (2 - 0.1) + 0.1; // Random duration between 0.1 and 2 seconds
+    
+    setTimeout(() => {
+        switchToCamera2(count + 1);
+    }, gifDuration * 1000);
+}
+
+function switchToCamera2(count) {
+    //addBotMessageToDom(`cam`);
+    let videoPlayer = document.getElementById(`user-${uid}`);
+    videoPlayer.innerHTML ='';
+    localTracks[1].play(`user-${uid}`)
+    
+    let cameraDuration = 2; // Duration for camera view in seconds
+    
+    if (count < 5) { // Repeat 3 times, adjust if needed
+        setTimeout(() => {
+            switchToGif(count);
+        }, cameraDuration * 1000);
+    } else {
+        // Reset state after the last iteration
+         let videoPlayer = document.getElementById(`user-${uid}`);
+    videoPlayer.innerHTML = '<img src="small-load.gif" alt="Loading..." style="width: 100%; height: 100%">';
+    }
 }
 
 document.getElementById('join-btn').addEventListener('click', joinStream)
